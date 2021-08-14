@@ -58,5 +58,59 @@ def scrape():
 
 #####################################################################
     ### MARS FACTS TABLE ###
-    
+    # set url code to a variable
+    table_url = "https://galaxyfacts-mars.com/"    
 
+    # pandas extracts the tables
+    tables = pd.read_html(table_url)
+
+    # choose only the 2nd table because we don't need the comparisons to earth
+    just_mars_df = tables[1]
+
+    # convert to html
+    mars_html_table = just_mars_df.to_html()
+
+#######################################################################
+    ### MARS HEMISPHERES ###
+    # Setup splinter
+    executable_path = {'executable_path': ChromeDriverManager().install()}
+    browser = Browser('chrome', **executable_path, headless=False)
+
+    # assign url variables for main pages
+    cerb_url = 'https://marshemispheres.com/cerberus.html'
+    schia_url = 'https://marshemispheres.com/schiaparelli.html'
+    syrt_url = 'https://marshemispheres.com/syrtis.html'
+    valles_url = 'https://marshemispheres.com/valles.html'
+    generic_url = 'https://marshemispheres.com/'
+
+    # url list to iterate through the loop
+    hemi_urls = [cerb_url, schia_url, syrt_url, valles_url]
+
+    # initialize lists
+    hemi_titles = [] 
+    hemi_pics = []
+    # establish list which will hold hemisphere dictionaries
+    mars_hemis_dict = []
+
+    # loop to pull titles & image urls
+    for url in hemi_urls:
+        # direct splinter to website
+        this_url = url
+        browser.visit(this_url)
+
+        #create a beautiful soup object
+        this_soup = bs (browser.html, 'html.parser')
+
+        # pull info for lists
+        this_title = this_soup.find('h2', class_="title").get_text()
+        hemi_titles.append(this_title)
+
+        # stripping end of url
+        this_img = this_soup.find_all('a', href=True)
+        this_pic = (this_img[3]['href'])
+        this_pic_url = generic_url + this_pic
+        hemi_pics.append((generic_url + this_pic))
+        mars_hemis_dict.append({this_title: this_pic_url})
+
+    browser.quit()    
+################ END SCRAPE ####################################
