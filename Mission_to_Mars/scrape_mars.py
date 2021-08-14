@@ -8,6 +8,9 @@ from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo as pm
 
 def scrape():
+    # initialize dictionary for all info
+    full_dict = {}
+
     ### SCRAPE MARS NEWS ###
     # Setup splinter
     executable_path = {'executable_path': ChromeDriverManager().install()}
