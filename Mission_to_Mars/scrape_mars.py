@@ -31,6 +31,9 @@ def scrape():
     teaser = soup.find('div', class_="article_teaser_body")
     article_teaser = teaser.get_text()
 
+    # add items to dictionary
+    full_dict.update({'NASA Mars News': [article_title, article_teaser]})
+    
     # close splinter for this site
     browser.quit()
 ##################################################################
@@ -56,6 +59,9 @@ def scrape():
     # save feature pic url as variable
     feature_image_url = image_url + pic_results
 
+    # add info to dictionary
+    full_dict.update({'JPL Mars Featured Image': [feature_name, feature_image_url]})
+
     # close splinter for this website
     browser.quit()
 
@@ -72,6 +78,9 @@ def scrape():
 
     # convert to html
     mars_html_table = just_mars_df.to_html()
+
+    # add to dictionary
+    full_dict.update({'Mars Facts Table': [table_url, mars_html_table]})
 
 #######################################################################
     ### MARS HEMISPHERES ###
@@ -116,4 +125,7 @@ def scrape():
         mars_hemis_dict.append({this_title: this_pic_url})
 
     browser.quit()    
+
+    # add to dictionary
+    full_dict.update({'Mars Hemispheres': mars_hemis_dict})
 ################ END SCRAPE ####################################
