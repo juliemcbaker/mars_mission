@@ -7,6 +7,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo as pm
 
+#################################################################################
+##                      SCRAPING                                               ##
+#################################################################################
 def scrape():
     # initialize dictionary for all info
     full_dict = {}
@@ -129,3 +132,22 @@ def scrape():
     # add to dictionary
     full_dict.update({'Mars Hemispheres': mars_hemis_dict})
 ################ END SCRAPE ####################################
+################################################################
+
+################################################################
+##          FLASK SETUP
+################################################################
+app = Flask(__name__)
+
+#############################################################
+##  FLASK ROUTES
+############################################################
+
+@app.route("/scrape")
+def pull_data():
+    import scrape_mars.py
+
+
+@app.route("/")
+
+
