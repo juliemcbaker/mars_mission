@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup as bs
 import requests
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
-from flask import Flask, render_template, redirect
-from flask_pymongo import PyMongo as pm
+import pymongo
+
 
 #################################################################################
 ##                      SCRAPING                                               ##
@@ -133,21 +133,4 @@ def scrape():
     full_dict.update({'Mars Hemispheres': mars_hemis_dict})
 ################ END SCRAPE ####################################
 ################################################################
-
-################################################################
-##          FLASK SETUP
-################################################################
-app = Flask(__name__)
-
-#############################################################
-##  FLASK ROUTES
-############################################################
-
-@app.route("/scrape")
-def pull_data():
-    import scrape_mars.py
-
-
-@app.route("/")
-
 
