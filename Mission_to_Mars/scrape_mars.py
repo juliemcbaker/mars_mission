@@ -132,5 +132,19 @@ def scrape():
     # add to dictionary
     full_dict.update({'Mars Hemispheres': mars_hemis_dict})
 ################ END SCRAPE ####################################
+
 ################################################################
 
+####### DATABASE ####################
+# start connection to mongo db
+conn = 'mongodb://localhost:27017'
+client = pymongo.MongoClient(conn)
+
+# definte the 'mars_db' database in Mongo
+db = client.mars_db
+
+# declare the collection
+mars_collection = db.mars 
+
+# insert the dictionary
+mars_collection.insert_one(full_dict)

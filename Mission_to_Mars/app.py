@@ -10,11 +10,11 @@ app = Flask(__name__)
 ################################
 # PYMONGO SETUP
 #################################
-    conn = 'mongodb://localhost:27017'
-    client = pymongo.MongoClient(conn)
+conn = 'mongodb://localhost:27017'
+client = pymongo.MongoClient(conn)
     # define the database in Mongo
-    db = client.marsDB
-    collection = db.mars_info
+db = client.mars_db
+mars_collection = db.mars
 
 #############################################################
 ##  FLASK ROUTES
@@ -26,17 +26,13 @@ app = Flask(__name__)
 @app.route("/scrape")
 def pull_data():
     return (scrape_mars)
-    
 
-
-
-    mars.insert(full_dict)
 
 @app.route("/")
 def home():
-    mars_info = collection.find_one()
-    return render_template('index.html', mars_info=mars_info)
+    mars = mars_collection.find_one()
+    return render_template('index.html', mars=mars)
 
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     app.run(debug=True)
