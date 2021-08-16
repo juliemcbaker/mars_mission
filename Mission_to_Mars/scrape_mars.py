@@ -6,7 +6,6 @@ from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
 import pymongo
 
-
 #################################################################################
 ##                      SCRAPING                                               ##
 #################################################################################
@@ -102,7 +101,7 @@ def scrape():
     hemi_urls = [cerb_url, schia_url, syrt_url, valles_url]
 
     # initialize lists
-    hemi_titles = [] 
+    hemi_titles = []
     hemi_pics = []
     # establish list which will hold hemisphere dictionaries
     mars_hemis_dict = []
