@@ -44,6 +44,14 @@
     </div>
 
 
+   
+
+    <div class="row">
+      <div class="col">
+        <h3 class="text-center">Hemispheres</h3>
+      </div>
+    </div>
+    
     <div class="row">
       {%for i in mars.mars_hemis%}
       <div class="col-md-3">
@@ -51,22 +59,20 @@
           <div class="card-body">
             
             <div class="thumbnail">
-              <img src="{{  img_url  | safe  }}" alt="..." class="img-thumbnail">
+              <img src="{{  mars.mars_hemis.img_url  }}" alt="..." class="img-thumbnail">
             </div>
             <div class="caption">
-                <h5>{{  title  }}</h5>
+                <h5>{{  mars.mars_hemis.title  }}</h5>
             </div>
           </div>
         </div>
       </div>
       {%endfor%}
-    </div>    
-
-    <div class="row">
-      <div class="col">
-        <h3 class="text-center">Hemispheres</h3>
-      </div>
-    </div>
+    </div>     
+    
+    
+    
+    
     <div class="row">
       <div class="col-md-3">
         <div class="card">
