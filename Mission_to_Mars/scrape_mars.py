@@ -34,7 +34,7 @@ def scrape():
     article_teaser = teaser.get_text()
 
     # add items to dictionary
-    full_dict.update({'NASA Mars News': [article_title, article_teaser]})
+    full_dict.update({'article_title': article_title, 'article_teaser': article_teaser})
     
     # close splinter for this site
     browser.quit()
@@ -62,7 +62,7 @@ def scrape():
     feature_image_url = image_url + pic_results
 
     # add info to dictionary
-    full_dict.update({'JPL Mars Featured Image': [feature_name, feature_image_url]})
+    full_dict.update({'feature_name': feature_name, 'feature_image_url': feature_image_url})
 
     # close splinter for this website
     browser.quit()
@@ -81,8 +81,11 @@ def scrape():
     # convert to html
     mars_html_table = just_mars_df.to_html()
 
+    # remove n-strings
+    mars_table_strip = mars_html_table.replace('\n', '')
+
     # add to dictionary
-    full_dict.update({'Mars Facts Table': [table_url, mars_html_table]})
+    full_dict.update({'table_url': table_url, 'mars_html_table': mars_table_strip})
 
 #######################################################################
     ### MARS HEMISPHERES ###
@@ -123,13 +126,16 @@ def scrape():
         this_img = this_soup.find_all('a', href=True)
         this_pic = (this_img[3]['href'])
         this_pic_url = generic_url + this_pic
-        hemi_pics.append((generic_url + this_pic))
-        mars_hemis_dict.append({this_title: this_pic_url})
-
+        hemi_pics.append('hemi_img_url: ' + (generic_url + this_pic))
+    
+        # putting into sub-dictionary
+        this_dict = {'title': this_title, 'img_url': this_pic_url}
+        mars_hemis_dict.append(this_dict)
+    
     browser.quit()    
 
     # add to dictionary
-    full_dict.update({'Mars Hemispheres': mars_hemis_dict})
+    full_dict.update({'mars_hemis': mars_hemis_dict})
 
     return full_dict
 ################ END SCRAPE ####################################
